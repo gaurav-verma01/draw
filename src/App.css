@@ -1,0 +1,7 @@
+.App{
+    position: relative;
+}
+.options{
+    position: absolute;
+    z-index: 100;
+}
