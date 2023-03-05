@@ -1,14 +1,11 @@
-import { useEffect, useLayoutEffect, useReducer, useRef, useState } from 'react';
-import rough from 'roughjs';
-import getStroke from 'perfect-freehand';
+import { useEffect, useRef, useState } from 'react';
 import './App.css';
-import { Stack } from '@mantine/core';
+import { Button, Image, Stack } from '@mantine/core';
 import { NumberInput } from '@mantine/core';
 import { ColorInput } from '@mantine/core';
 import { Radio } from '@mantine/core';
 import { Group } from '@mantine/core';
 import { Textarea } from '@mantine/core';
-
 const App = () => {
   const canvaRef: any = useRef(null);
   const contextRef: any = useRef(null);
@@ -62,6 +59,13 @@ const App = () => {
     setIsDrawing(false);
   };
 
+  const downloadHandler = (event: any) => {
+    let link = event.currentTarget;
+    link.setAttribute('download', 'canva.png');
+    let image = canvaRef.current.toDataURL('image/png');
+    link.setAttribute('href', image);
+  };
+
   return (
     <div className="App">
       <Stack className="options">
@@ -84,6 +88,15 @@ const App = () => {
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
       ></canvas>
+      <Button
+        component="a"
+        m={2}
+        href="download"
+        onClick={downloadHandler}
+        style={{ position: 'absolute', right: 0, top: 0 }}
+      >
+        Download
+      </Button>
     </div>
   );
 };
